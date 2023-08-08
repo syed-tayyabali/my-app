@@ -7,8 +7,8 @@ import { routePaths } from "./Router/paths";
 function App() {
   return (
     <div className="App">
+      <Main />
       <Routes>
-        <Route path="/" element={<Main />} />
         <Route path={routePaths.Counter.countPath()} element={<Counter />} />
       </Routes>
     </div>
