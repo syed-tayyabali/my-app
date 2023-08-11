@@ -15,7 +15,7 @@ export const Counter = () => {
   );
 
   const styles = {
-    color: counterValue > 13 ? "red" : counterValue < 5 ? "green" : "black",
+    color: counterValue > 13 ? "red" : counterValue < 5 ? "green" : "white",
   };
   return (
     <>
