@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 interface counterState {
   counterValue: number;
   counterName: string;
+  selectedTheme: "light" | "dark";
 }
 
 const initialState: counterState = {
   counterValue: 0,
   counterName: "",
+  selectedTheme: "dark",
 };
 
 // REDUCER
@@ -15,6 +17,9 @@ const CounterSlice = createSlice({
   name: "Counter",
   initialState,
   reducers: {
+    toggleTheme: (state) => {
+      state.selectedTheme = state.selectedTheme === "light" ? "dark" : "light";
+    },
     setCounterName: (state, { payload }: { payload: string }) => {
       state.counterName = payload;
     },
@@ -29,6 +34,10 @@ const CounterSlice = createSlice({
   },
 });
 
-export const { handleIncCounter, setCounterName, handleDecCounter } =
-  CounterSlice.actions;
+export const {
+  handleIncCounter,
+  setCounterName,
+  handleDecCounter,
+  toggleTheme,
+} = CounterSlice.actions;
 export default CounterSlice.reducer;

@@ -1,16 +1,19 @@
 import Box from "@mui/material/Box";
-import { AppToolbar } from "../AppToolbar";
-import { Home } from "../Home";
+import { Container } from "@mui/system";
 import { About } from "../About";
+import { AppToolbar } from "../AppToolbar";
+import { Exprience } from "../Exprience";
+import { Home } from "../Home";
 
 export const Main = () => {
   return (
-    <Box sx={{ display: "flex" }}>
-      <Box component="main" sx={{ p: 3 }}>
-        <AppToolbar />
+    <Box component="main">
+      <AppToolbar />
+      <Container maxWidth={"lg"} sx={{ marginLeft: "14vh" }}>
         <Home />
         <About />
-      </Box>
+        <Exprience />
+      </Container>
     </Box>
   );
 };

@@ -1,3 +1,5 @@
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import {
   AppBar,
   Box,
@@ -11,12 +13,15 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
+  useTheme,
 } from "@mui/material";
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { routePaths } from "../../Router/paths";
 import Toolbar from "@mui/material/Toolbar";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { colors } from "../../Constants";
+import { toggleTheme } from "../../Features/Counter/counterSlice";
+import { routePaths } from "../../Router/paths";
 
 interface Props {
   /**
@@ -31,6 +36,8 @@ const navItems = ["About", "Contact", "Counter"];
 
 export const AppToolbar = (props: Props) => {
   const { window } = props;
+  const theme = useTheme();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -77,7 +84,13 @@ export const AppToolbar = (props: Props) => {
   return (
     <>
       <CssBaseline />
-      <AppBar component="nav" style={{ backgroundColor: colors.theme }}>
+      <AppBar
+        color="default"
+        component="nav"
+        style={{
+          backgroundColor: theme.palette.mode === "light" ? "#DEBA9D" : "",
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -102,6 +115,17 @@ export const AppToolbar = (props: Props) => {
             <span style={{ cursor: "pointer" }}>TAYYAB</span>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <IconButton
+              sx={{ ml: 1 }}
+              onClick={(e) => dispatch(toggleTheme())}
+              color="inherit"
+            >
+              {theme.palette.mode === "dark" ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon />
+              )}
+            </IconButton>
             {navItems.map((item) => (
               <Button
                 key={item}
@@ -109,7 +133,9 @@ export const AppToolbar = (props: Props) => {
                   color:
                     pathname?.replace("/", "") === item.toLowerCase()
                       ? colors.orange
-                      : "#fff",
+                      : theme.palette.mode !== "light"
+                      ? "#fff"
+                      : "#000",
                 }}
                 onClick={() => handleNavClicked(item)}
               >
