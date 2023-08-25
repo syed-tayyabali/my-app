@@ -9,7 +9,7 @@ export const Main = () => {
   return (
     <Box component="main">
       <AppToolbar />
-      <Container maxWidth={"lg"} sx={{ marginLeft: "14vh" }}>
+      <Container maxWidth={"xl"} sx={{ marginLeft: "14vh" }}>
         <Home />
         <About />
         <Exprience />
