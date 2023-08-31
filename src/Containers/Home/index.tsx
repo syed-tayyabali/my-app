@@ -6,7 +6,7 @@ import reduxImage from "../../Images/redux.png";
 import tS from "../../Images/ts.png";
 import "./index.css";
 
-export const Home = () => {
+export const Home = ({ contactRef }: { contactRef: any }) => {
   return (
     <Grid container spacing={2} justifyContent={"space-between"}>
       <Grid item xs={8}>
@@ -64,6 +64,9 @@ export const Home = () => {
               variant="outlined"
               color="error"
               sx={{ float: "left", textTransform: "none" }}
+              onClick={() =>
+                contactRef.current?.scrollIntoView({ behavior: "smooth" })
+              }
             >
               Get in touch
             </Button>

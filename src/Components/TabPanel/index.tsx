@@ -10,7 +10,8 @@ export const TabPanel = (props: TabPanelProps) => {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Typography
+      component="div"
       role="tabpanel"
       hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
@@ -18,10 +19,10 @@ export const TabPanel = (props: TabPanelProps) => {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box p={3} style={{ paddingTop: 0 }}>
+          {children}
         </Box>
       )}
-    </div>
+    </Typography>
   );
 };

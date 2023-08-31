@@ -1,4 +1,6 @@
-import { Box, Divider, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
+import { forwardRef } from "react";
+import { DividerWithName } from "../../Components/DividerWithName";
 import profile from "../../Images/profile.jpg";
 
 const paperStyle = {
@@ -20,34 +22,13 @@ const paperText = [
   "Firebase",
 ];
 
-export const About = () => {
+export const About = forwardRef((props, ref) => {
   return (
-    <section style={{ width: "100%", marginBottom: "150px" }}>
-      <Grid container spacing={3} pb={8}>
-        <Grid item xs={3}>
-          <Divider
-            sx={{ bgcolor: "red", borderBottomWidth: 2, marginTop: "22px" }}
-          />
-        </Grid>
-        <Grid item xs={2}>
-          <Typography
-            component="h4"
-            textTransform="uppercase"
-            fontSize="30px"
-            fontWeight="500"
-            align="left"
-            marginLeft="10px"
-          >
-            About
-          </Typography>
-        </Grid>
-        <Grid item xs={7}>
-          <Divider
-            sx={{ bgcolor: "red", borderBottomWidth: 2, marginTop: "22px" }}
-          />
-        </Grid>
-      </Grid>
-
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      style={{ width: "100%", marginBottom: "150px" }}
+    >
+      <DividerWithName name={"About"} />
       <Grid container spacing={2} justifyContent="space-between">
         <Grid item xs={8}>
           <Box>
@@ -82,4 +63,4 @@ export const About = () => {
       </Grid>
     </section>
   );
-};
+});

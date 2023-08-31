@@ -14,6 +14,15 @@ const lightTheme = createTheme({
       default: "#DEBA9D",
     },
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          transition: "all 0.3s linear",
+        },
+      },
+    },
+  },
 });
 
 const darkTheme = createTheme({
@@ -21,6 +30,15 @@ const darkTheme = createTheme({
     mode: "dark",
     background: {
       default: "#212121",
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          transition: "all 0.3s linear",
+        },
+      },
     },
   },
 });

@@ -23,19 +23,27 @@ import { colors } from "../../Constants";
 import { toggleTheme } from "../../Features/Counter/counterSlice";
 import { routePaths } from "../../Router/paths";
 
+interface IReferences {
+  aboutRef: any;
+  expRef: any;
+  projRef: any;
+  contactRef: any;
+}
 interface Props {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
    */
   window?: () => Window;
+  references: IReferences;
 }
 
 const drawerWidth = 240;
-const navItems = ["About", "Contact", "Counter"];
+const navItems = ["About", "Exprience", "Projects", "Contact", "Counter"];
 
 export const AppToolbar = (props: Props) => {
-  const { window } = props;
+  const { window, references } = props;
+  const { aboutRef, expRef, projRef, contactRef } = references;
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,10 +76,16 @@ export const AppToolbar = (props: Props) => {
   const handleNavClicked = (item: string) => {
     switch (item) {
       case "About":
-        navigate("/about");
+        aboutRef.current?.scrollIntoView({ behavior: "smooth" });
+        break;
+      case "Exprience":
+        expRef.current?.scrollIntoView({ behavior: "smooth" });
+        break;
+      case "Projects":
+        projRef.current?.scrollIntoView({ behavior: "smooth" });
         break;
       case "Contact":
-        navigate("/contact");
+        contactRef.current?.scrollIntoView({ behavior: "smooth" });
         break;
       case "Counter":
         navigate(routePaths.Counter.countPath());

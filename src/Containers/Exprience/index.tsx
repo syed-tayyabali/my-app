@@ -1,45 +1,30 @@
-import { Divider, Grid, Typography } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import * as React from "react";
+import { DividerWithName } from "../../Components/DividerWithName";
 import { TabPanel } from "../../Components/TabPanel";
-import { a11yProps } from "../../Constants";
+import { a11yProps, colors } from "../../Constants";
+import { CompanyIcon } from "./CompanyIcon";
+import { companyDes, companyLinks } from "./Constant";
 
-export const Exprience = () => {
+export const Exprience = React.forwardRef((props, ref) => {
   const [value, setValue] = React.useState(0);
+  const theme = useTheme();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  return (
-    <section style={{ width: "100%", marginBottom: "50px" }}>
-      <Grid container spacing={3} pb={8}>
-        <Grid item xs={3}>
-          <Divider
-            sx={{ bgcolor: "red", borderBottomWidth: 2, marginTop: "22px" }}
-          />
-        </Grid>
-        <Grid item xs={2}>
-          <Typography
-            component="h4"
-            textTransform="uppercase"
-            fontSize="30px"
-            fontWeight="500"
-            align="left"
-            marginLeft="10px"
-          >
-            Exprience
-          </Typography>
-        </Grid>
-        <Grid item xs={7}>
-          <Divider
-            sx={{ bgcolor: "red", borderBottomWidth: 2, marginTop: "22px" }}
-          />
-        </Grid>
-      </Grid>
+  const typoGraphyColor = theme.palette.mode === "light" ? "#000" : "#C8C8C8";
 
+  return (
+    <section
+      ref={ref as React.RefObject<HTMLElement>}
+      style={{ width: "100%", marginBottom: "50px" }}
+    >
+      <DividerWithName name={"Exprience"} />
       <Box
         sx={{
           flexGrow: 1,
@@ -63,34 +48,52 @@ export const Exprience = () => {
             style={{
               color: value === 0 ? "#bf360c" : "",
             }}
-            label="Item One"
+            label="10Pearls"
             {...a11yProps(0)}
-          />
-          <Tab
-            style={{
-              color: value === 1 ? "#bf360c" : "",
-            }}
-            label="Item Two"
-            {...a11yProps(1)}
-          />
-          <Tab
-            style={{
-              color: value === 2 ? "#bf360c" : "",
-            }}
-            label="Item Three"
-            {...a11yProps(2)}
           />
         </Tabs>
         <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
+          <div style={{ marginBottom: "32px" }}>
+            <h2
+              style={{ marginBottom: 0, fontWeight: 500, lineHeight: "21px" }}
+            >
+              Full stack web developer @{" "}
+              <a
+                style={{
+                  color: colors.orange,
+                  textDecoration: "none",
+                }}
+                href="https://10pearls.com/"
+              >
+                10Pearls
+              </a>
+            </h2>
+            <Typography fontSize={18} color={typoGraphyColor}>
+              {" "}
+              Dec 2020 - Present
+            </Typography>
+          </div>
+          <div>
+            {companyDes.map((item, index) => (
+              <div key={index} style={{ paddingTop: 16 }}>
+                <Typography component="h3" fontSize={22} fontWeight={400}>
+                  {item.title}
+                </Typography>
+                <Typography fontWeight={"lighter"} color={typoGraphyColor}>
+                  {item.description}
+                </Typography>
+              </div>
+            ))}
+          </div>
+          <div
+            style={{ paddingTop: 16, display: "flex", flexDirection: "row" }}
+          >
+            {companyLinks.map((item: any) => (
+              <CompanyIcon compLinkObj={item} currTheme={theme} />
+            ))}
+          </div>
         </TabPanel>
       </Box>
     </section>
   );
-};
+});
