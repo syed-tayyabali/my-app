@@ -8,10 +8,6 @@ import {
   Divider,
   Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -21,7 +17,6 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { colors } from "../../Constants";
 import { toggleTheme } from "../../Features/Counter/counterSlice";
-import { routePaths } from "../../Router/paths";
 
 interface IReferences {
   aboutRef: any;
@@ -29,6 +24,7 @@ interface IReferences {
   projRef: any;
   contactRef: any;
 }
+
 interface Props {
   /**
    * Injected by the documentation to work in an iframe.
@@ -39,11 +35,16 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = ["About", "Exprience", "Projects", "Contact", "Counter"];
+
+const navItems: Record<keyof IReferences, string> = {
+  aboutRef: "About",
+  expRef: "Experiences",
+  projRef: "Projects",
+  contactRef: "Contact",
+};
 
 export const AppToolbar = (props: Props) => {
   const { window, references } = props;
-  const { aboutRef, expRef, projRef, contactRef } = references;
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,40 +60,22 @@ export const AppToolbar = (props: Props) => {
         MUI
       </Typography>
       <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {/* <List>
+          {navItems.map((item) => (
+            <ListItem key={item} disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <ListItemText primary={item} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List> */}
     </Box>
   );
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  const handleNavClicked = (item: string) => {
-    switch (item) {
-      case "About":
-        aboutRef.current?.scrollIntoView({ behavior: "smooth" });
-        break;
-      case "Exprience":
-        expRef.current?.scrollIntoView({ behavior: "smooth" });
-        break;
-      case "Projects":
-        projRef.current?.scrollIntoView({ behavior: "smooth" });
-        break;
-      case "Contact":
-        contactRef.current?.scrollIntoView({ behavior: "smooth" });
-        break;
-      case "Counter":
-        navigate(routePaths.Counter.countPath());
-        break;
-      default:
-        break;
-    }
+  const handleNavClicked = (item: keyof IReferences) => {
+    references[item].current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -140,7 +123,7 @@ export const AppToolbar = (props: Props) => {
                 <Brightness4Icon />
               )}
             </IconButton>
-            {navItems.map((item) => (
+            {Object.keys(navItems).map((item: string) => (
               <Button
                 key={item}
                 sx={{
@@ -151,9 +134,9 @@ export const AppToolbar = (props: Props) => {
                       ? "#fff"
                       : "#000",
                 }}
-                onClick={() => handleNavClicked(item)}
+                onClick={() => handleNavClicked(item as keyof IReferences)}
               >
-                {item}
+                {navItems[item as keyof IReferences]}
               </Button>
             ))}
           </Box>
